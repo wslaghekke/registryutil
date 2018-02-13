@@ -1,0 +1,13 @@
+#!/usr/bin/env php
+<?php
+// application.php
+
+require __DIR__.'/../vendor/autoload.php';
+
+use Symfony\Component\Console\Application;
+
+$cache = new \Symfony\Component\Cache\Simple\FilesystemCache();
+
+$application = new Application();
+$application->add(new \App\RepositoryCleanCommand($cache));
+$application->run();
