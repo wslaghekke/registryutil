@@ -82,7 +82,7 @@ class RepositoryCleanCommand extends Command
 
     protected function deleteManifest(OutputInterface $output, string $registry, string $repository, string $manifest)
     {
-        $manifestProcess = new Process("az acr repository delete --name $registry --repository $repository --manifest $manifest");
+        $manifestProcess = new Process("az acr repository delete -y --name $registry --repository $repository --manifest $manifest");
         $manifestProcess->setTimeout(null);
         $manifestProcess->mustRun(function ($type, $buffer) use ($output) {
             if (Process::ERR === $type) {
