@@ -40,8 +40,10 @@ class RepositoryCleanCommand extends Command
         foreach ($manifestData as $manifest) {
             if (\count($manifest['tags']) === 0) {
                 $output->writeln('Orphaned manifest: ' . $manifest['digest']);
-                $output->writeln('Deleting manifest: ' . $manifest['digest']);
-                $this->deleteManifest($output, $registry, $repository, $manifest['digest']);
+                if($input->hasOption('delete')) {
+                    $output->writeln('Deleting manifest: ' . $manifest['digest']);
+                    $this->deleteManifest($output, $registry, $repository, $manifest['digest']);
+                }
             } else {
                 $output->writeln('Tagged manifest: ' . $manifest['digest'] . ' tags: ' . implode(', ', $manifest['tags']));
             }
